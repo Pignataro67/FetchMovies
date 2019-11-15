@@ -5,27 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Fetch Movies</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.
-    1/css/bootstrap.min.css" 
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
-    crossorigin="anonymous">
-    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
 <body>
-  <button id="getText">Get Text</button>
-  <button id="getUsers">Get JSON</button>
-  <button id="getMovies">Get Movies</button>
-  <hr>
-  <div id="output"></div>
-  <form id="addMovie">
-    <div>
-      <input type="text" id="title" placeholder="Title">
+  <div class="container">
+    <h1 class="display-4 mb-4">Fetch Movies</h1>
+    <div class="d-flex">
+      <button class="btn btn-primary mr-4" id="getText">Get Text</button>
+      <button class="btn btn-success mr-4" id="getUsers">Get JSON</button>
+      <button class="btn btn-warning mr-4" id="getMovies">Get Movies</button>
     </div>
-    <div>
-      <textarea id="body" placeholder="Body"></textarea>
-    </div>
-    <input type="submit" value="Submit">
-  </form>
+    <hr>
+    <div id="output"></div>
+    <form id="addMovie">
+      <div class="form-group">
+        <input type="text" id="title" class="form-control" placeholder="Title">
+      </div>
+      <div class="form-group">
+        <textarea id="body" class="form-control" placeholder="Body"></textarea>
+      </div>
+      <input type="submit" class="btn btn-secondary" value="Submit">
+    </form>
+  </div>
 
   <script>
     document.getElementById('getText').addEventListener('click', getText);
@@ -53,13 +55,13 @@
       fetch('users.json')
       .then((res) => res.json())
       .then((data) => {
-        let output = '<h2>Users</h2>';
+        let output = '<h2 class="mb-4">Users</h2>';
         data.forEach(function(user){
           output += `
-            <ul>
-              <li>ID: ${user.id}</li>
-              <li>Name: ${user.name}</li>
-              <li>Email: ${user.email}</li>
+            <ul class="list-group mb-3">
+              <li class="list-group-item">ID: ${user.id}</li>
+              <li class="list-group-item">Name: ${user.name}</li>
+              <li class="list-group-item">Email: ${user.email}</li>
             </ul>
           `;
         });   
@@ -68,15 +70,15 @@
     }
 
     function getMovies(){
-      fetch('')
+      fetch('https://developers.themoviedb.org/3/movies/get-popular-movies')
       .then((res) => res.json())
       .then((data) => {
-        let output = '<h2>Movies</h2>';
+        let output = '<h2 class="mb-4">Movies</h2>';
         data.forEach(function(movie){
           output += `
-            <div>
+            <div class="card card-body mb-3">
               <h3>${movie.title}</h3>
-              <p>${movie.plot}</p>
+              <p>${movie.details}</p>
             </div>
           `;
         });   
@@ -88,7 +90,7 @@
       e.preventDefault();
 
       let title =  document.getElementById('title').value;
-      let plot =  document.getElementById('plot').value;
+      let details =  document.getElementById('details').value;
 
       fetch('', {
         method:'POST',
@@ -96,7 +98,7 @@
           'Accept': 'application/json, text/plain, */*',
           'Content-type':'application/json'
         },
-        body:JSON.stringify({title:title, body:body}) 
+        body:JSON.stringify({title:title, details:details}) 
       })
       .then((res) => res.json())
       .then((data) => console.log(data))
