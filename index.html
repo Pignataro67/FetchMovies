@@ -36,7 +36,7 @@
     document.getElementById('getMovies').addEventListener('click', getMovies);
     document.getElementById('addMovie').addEventListener('submit', addMovie);
     document.getElementById('getDetails').addEventListener('submit', getDetails);
-    
+
     function getText(){
       // fetch('sample.txt')
       // .then(function(res){
@@ -80,6 +80,22 @@
           output += `
             <div class="card card-body mb-3">
               <h3>${movie.title}</h3>
+              <p>${movie.details}</p>
+            </div>
+          `;
+        });   
+        document.getElementById('output').innerHTML = output;
+      })
+    }
+
+    function getDetailss(){
+      fetch('https://developers.themoviedb.org/3/movies/get-popular-movies')
+      .then((res) => res.json())
+      .then((data) => {
+        let output = '<h2 class="mb-4">Details</h2>';
+        data.forEach(function(details){
+          output += `
+            <div class="card card-body mb-3">
               <p>${movie.details}</p>
             </div>
           `;
