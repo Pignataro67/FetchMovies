@@ -26,7 +26,7 @@
       <div class="form-group">
         <textarea id="body" class="form-control" placeholder="Body"></textarea>
       </div>
-      <input type="submit" class="btn btn-secondary" value="Submit">
+      <input type="submit" class="btn btn-primary" value="Submit">
     </form>
   </div>
 
@@ -38,13 +38,6 @@
     document.getElementById('getDetails').addEventListener('submit', getDetails);
 
     function getText(){
-      // fetch('sample.txt')
-      // .then(function(res){
-      //   return res.text();
-      // })
-      // .then(function(data){
-      //   console.log(data);
-      // });
       fetch('sample.txt')
       .then((res) => res.text())
       .then((data) => {
